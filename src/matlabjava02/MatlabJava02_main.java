@@ -14,6 +14,7 @@ public class MatlabJava02_main {
 		System.out.println("v = "+Arrays.deepToString(mlib.getV()));
 		System.out.println("d = "+Arrays.deepToString(mlib.getD()));
 		System.out.println("determ = "+(mlib.getDeterm()));
+		System.out.println("inverse = "+Arrays.deepToString(mlib.getInverse()));
 	}
 
 }

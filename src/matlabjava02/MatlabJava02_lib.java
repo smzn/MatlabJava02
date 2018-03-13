@@ -13,7 +13,7 @@ public class MatlabJava02_lib {
 	
 	//MATLAB を Java から非同期的に起動します。
 	Future<MatlabEngine> eng;
-	double a[][], v[][], d[][] ; //v:固有ベクトル、d:固有値
+	double a[][], v[][], d[][], inverse[][] ; //v:固有ベクトル、d:固有値
 	MatlabEngine ml;
 	double determ;
 
@@ -44,11 +44,17 @@ public class MatlabJava02_lib {
 			Future<double[][]> futureEval_d = ml.getVariableAsync("d");
 			d = futureEval_d.get();
 			
-			//逆行列算出
+			//行列式算出
 			ml.putVariableAsync("determ", determ);
 			ml.eval("determ = det(a);");
 			Future<Double> futureEval_determ = ml.getVariableAsync("determ");
 			determ = futureEval_determ.get();
+			
+			//逆行列算出
+			ml.putVariableAsync("inverse", inverse);
+			ml.eval("inverse = inv(a);");
+			Future<double[][]> futureEval_inv = ml.getVariableAsync("inverse");
+			inverse = futureEval_inv.get();
 			
 		} catch (MatlabExecutionException e) {
 			// TODO Auto-generated catch block
@@ -84,6 +90,10 @@ public class MatlabJava02_lib {
 	
 	public double getDeterm() {
 		return determ;
+	}
+	
+	public double[][] getInverse() {
+		return inverse;
 	}
 
 }

@@ -1,6 +1,5 @@
 package matlabjava02;
 
-import java.util.Arrays;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

@@ -15,6 +15,7 @@ public class MatlabJava02_lib {
 	Future<MatlabEngine> eng;
 	double a[][], v[][], d[][] ; //v:固有ベクトル、d:固有値
 	MatlabEngine ml;
+	double determ;
 
 	public MatlabJava02_lib(double a[][]) {
 		this.a = a;
@@ -42,6 +43,12 @@ public class MatlabJava02_lib {
 			v = futureEval_v.get();
 			Future<double[][]> futureEval_d = ml.getVariableAsync("d");
 			d = futureEval_d.get();
+			
+			//逆行列算出
+			ml.putVariableAsync("determ", determ);
+			ml.eval("determ = det(a);");
+			Future<Double> futureEval_determ = ml.getVariableAsync("determ");
+			determ = futureEval_determ.get();
 			
 		} catch (MatlabExecutionException e) {
 			// TODO Auto-generated catch block
@@ -73,6 +80,10 @@ public class MatlabJava02_lib {
 
 	public double[][] getD() {
 		return d;
+	}
+	
+	public double getDeterm() {
+		return determ;
 	}
 
 }
